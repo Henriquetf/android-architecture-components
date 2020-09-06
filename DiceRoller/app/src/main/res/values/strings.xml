@@ -3,4 +3,12 @@
     <string name="roll_label">Roll</string>
     <string name="count_up_label">Count Up</string>
     <string name="reset_counter_label">Reset</string>
+    <!-- Dice -->
+    <string name="dice_1">One</string>
+    <string name="dice_2">Two</string>
+    <string name="dice_3">Three</string>
+    <string name="dice_4">Four</string>
+    <string name="dice_5">Five</string>
+    <string name="dice_6">Six</string>
+    <string name="empty_dice">Empty</string>
 </resources>

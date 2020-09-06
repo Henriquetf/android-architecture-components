@@ -3,6 +3,7 @@ package com.example.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -11,10 +12,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val rollButton: Button = findViewById<Button>(R.id.roll_button)
-        val resultText: TextView = findViewById(R.id.result_text)
+        val diceImage: ImageView = findViewById(R.id.dice_image)
 
         rollButton.setOnClickListener {
-            rollDice(resultText)
+            rollDice(diceImage)
         }
 
         val countUpButton: Button = findViewById(R.id.count_up_button)
@@ -33,14 +34,33 @@ class MainActivity : AppCompatActivity() {
         resetCounter(counterText)
     }
 
-    private fun rollDice(textView: TextView) {
+    private fun rollDice(diceImage: ImageView) {
         val randomNumber = (1..6).random()
 
-        textView.text = randomNumber.toString()
+        val drawableResource = when (randomNumber) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        val contentDescription = when (randomNumber) {
+            1 -> R.string.dice_1
+            2 -> R.string.dice_2
+            3 -> R.string.dice_3
+            4 -> R.string.dice_4
+            5 -> R.string.dice_5
+            else -> R.string.dice_6
+        }
+
+        diceImage.setImageResource(drawableResource)
+        diceImage.contentDescription = getString(contentDescription)
     }
 
-    private fun countUp(textView: TextView) {
-        val currentNumber: Int = textView.text.toString().toIntOrNull() ?: 0
+    private fun countUp(counterTextView: TextView) {
+        val currentNumber: Int = counterTextView.text.toString().toIntOrNull() ?: 0
         val nextNumber = currentNumber + 1
         val maxNumber = 6
 
@@ -48,12 +68,12 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        textView.text = nextNumber.toString()
+        counterTextView.text = nextNumber.toString()
     }
 
-    private fun resetCounter(textView: TextView) {
+    private fun resetCounter(counterTextView: TextView) {
         val newValue = 0
 
-        textView.text = newValue.toString()
+        counterTextView.text = newValue.toString()
     }
 }

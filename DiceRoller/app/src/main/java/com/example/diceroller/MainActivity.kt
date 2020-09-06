@@ -5,36 +5,46 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textview.MaterialTextView
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var rollButton: MaterialButton
+    private lateinit var countUpButton: MaterialButton
+    private lateinit var resetCounterButton: MaterialButton
+    private lateinit var diceImage: ShapeableImageView
+    private lateinit var counterTextView: MaterialTextView
+
+    private var currentCounter = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val rollButton: Button = findViewById<Button>(R.id.roll_button)
-        val diceImage: ImageView = findViewById(R.id.dice_image)
+        rollButton = findViewById(R.id.roll_button)
+        diceImage = findViewById(R.id.dice_image)
+        countUpButton = findViewById(R.id.count_up_button)
+        counterTextView = findViewById(R.id.counter_text)
+        resetCounterButton = findViewById(R.id.reset_counter_button)
 
         rollButton.setOnClickListener {
-            rollDice(diceImage)
+            rollDice()
         }
-
-        val countUpButton: Button = findViewById(R.id.count_up_button)
-        val counterText: TextView = findViewById(R.id.counter_text)
 
         countUpButton.setOnClickListener {
-            countUp(counterText)
+            countUp()
         }
-
-        val resetCounterButton: Button = findViewById(R.id.reset_counter_button)
 
         resetCounterButton.setOnClickListener {
-            resetCounter(counterText)
+            resetCounter()
         }
 
-        resetCounter(counterText)
+        resetCounter()
     }
 
-    private fun rollDice(diceImage: ImageView) {
+    private fun rollDice() {
         val randomNumber = (1..6).random()
 
         val drawableResource = when (randomNumber) {
@@ -59,21 +69,24 @@ class MainActivity : AppCompatActivity() {
         diceImage.contentDescription = getString(contentDescription)
     }
 
-    private fun countUp(counterTextView: TextView) {
-        val currentNumber: Int = counterTextView.text.toString().toIntOrNull() ?: 0
-        val nextNumber = currentNumber + 1
-        val maxNumber = 6
+    private fun countUp() {
+        val nextNumber = currentCounter + 1
 
-        if (nextNumber > maxNumber) {
-            return
+        if (nextNumber <= MAX_NUMBER) {
+            updateCounter(nextNumber)
         }
-
-        counterTextView.text = nextNumber.toString()
     }
 
-    private fun resetCounter(counterTextView: TextView) {
-        val newValue = 0
+    private fun resetCounter() {
+        updateCounter(0)
+    }
 
+    private fun updateCounter(newValue: Int) {
+        currentCounter = newValue
         counterTextView.text = newValue.toString()
+    }
+
+    companion object {
+        const val MAX_NUMBER = 6
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
@@ -12,9 +13,9 @@ import com.google.android.material.textview.MaterialTextView
 class DiceRollerFragment : Fragment() {
 
     private lateinit var rollButton: MaterialButton
-    private lateinit var countUpButton: MaterialButton
     private lateinit var resetCounterButton: MaterialButton
-    private lateinit var diceImage: ShapeableImageView
+    private lateinit var leftDiceImage: ShapeableImageView
+    private lateinit var rightDiceImage: ShapeableImageView
     private lateinit var counterTextView: MaterialTextView
 
     private var currentCounter = 0
@@ -31,27 +32,29 @@ class DiceRollerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rollButton = view.findViewById(R.id.roll_button)
-        diceImage = view.findViewById(R.id.dice_image)
-        countUpButton = view.findViewById(R.id.count_up_button)
+        leftDiceImage = view.findViewById(R.id.dice_image)
+        rightDiceImage = view.findViewById(R.id.second_dice_image)
         counterTextView = view.findViewById(R.id.counter_text)
         resetCounterButton = view.findViewById(R.id.reset_counter_button)
 
         rollButton.setOnClickListener {
-            rollDice()
-        }
+            rollDice(leftDiceImage)
+            rollDice(rightDiceImage)
 
-        countUpButton.setOnClickListener {
             countUp()
         }
 
         resetCounterButton.setOnClickListener {
+            resetDice(leftDiceImage)
+            resetDice(rightDiceImage)
+
             resetCounter()
         }
 
         resetCounter()
     }
 
-    private fun rollDice() {
+    private fun rollDice(diceImage: ImageView) {
         val randomNumber = (1..6).random()
 
         val drawableResource = when (randomNumber) {
@@ -72,28 +75,28 @@ class DiceRollerFragment : Fragment() {
             else -> R.string.dice_6
         }
 
-        diceImage.setImageResource(drawableResource)
-        diceImage.contentDescription = getString(contentDescription)
+        updateDice(diceImage, drawableResource, contentDescription)
+    }
+
+    private fun resetDice(diceImage: ImageView) {
+        updateDice(diceImage, R.drawable.empty_dice, R.string.empty_dice)
     }
 
     private fun countUp() {
-        val nextNumber = currentCounter + 1
-
-        if (nextNumber <= MAX_NUMBER) {
-            updateCounter(nextNumber)
-        }
+        updateCounter(currentCounter + 1)
     }
 
     private fun resetCounter() {
         updateCounter(0)
     }
 
+    private fun updateDice(diceImage: ImageView, imageResource: Int, contentDescription: Int) {
+        diceImage.setImageResource(imageResource)
+        diceImage.contentDescription = getString(contentDescription)
+    }
+
     private fun updateCounter(newValue: Int) {
         currentCounter = newValue
         counterTextView.text = newValue.toString()
-    }
-
-    companion object {
-        const val MAX_NUMBER = 6
     }
 }

@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import com.example.colormyviews.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setListeners()
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setListeners(binding)
     }
 
     private fun makeColored(view: View) {
@@ -25,22 +29,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setListeners() {
-        val boxOneText = findViewById<TextView>(R.id.box_one_text)
-        val boxTwoText = findViewById<TextView>(R.id.box_two_text)
-        val boxThreeText = findViewById<TextView>(R.id.box_three_text)
-        val boxFourText = findViewById<TextView>(R.id.box_four_text)
-        val boxFiveText = findViewById<TextView>(R.id.box_five_text)
-
-        val rootConstraintLayout = findViewById<View>(R.id.root_constraint_layout)
-
+    private fun setListeners(binding: ActivityMainBinding) {
         val clickableViews: List<View> = listOf(
-            boxOneText,
-            boxTwoText,
-            boxThreeText,
-            boxFourText,
-            boxFiveText,
-            rootConstraintLayout
+            binding.boxOneText,
+            binding.boxTwoText,
+            binding.boxThreeText,
+            binding.boxFourText,
+            binding.boxFiveText,
+            binding.rootConstraintLayout
         )
 
         for (item in clickableViews) {

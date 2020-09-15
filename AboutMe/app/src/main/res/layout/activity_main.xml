@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/name_text"
-        style="@style/NameStyle"
+    <data>
+
+        <variable
+            name="myName"
+            type="com.example.aboutme.MyName" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textAlignment="center" />
-
-    <EditText
-        android:id="@+id/nickname_edit"
-        style="@style/NameStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/what_is_your_nickname"
-        android:inputType="textPersonName"
-        android:text=""
-        android:textAlignment="center" />
-
-
-    <Button
-        android:id="@+id/done_button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/layout_margin"
-        android:fontFamily="@font/roboto"
-        android:text="@string/done" />
-
-    <TextView
-        android:id="@+id/nickname_text"
-        style="@style/NameStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/layout_margin"
-        android:background="@color/colorAccent"
-        android:paddingBottom="@dimen/small_padding"
-        android:textAlignment="center"
-        android:visibility="gone"
-        tools:text="Blob"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/star_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/layout_margin"
-        android:contentDescription="@string/yellow_star"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
-
-    <ScrollView
-        android:id="@+id/bio_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
         <TextView
-            android:id="@+id/bio_text"
+            android:id="@+id/name_text"
             style="@style/NameStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={myName.name}"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/nickname_edit"
+            style="@style/NameStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/what_is_your_nickname"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/done_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/layout_padding"
-            android:lineSpacingMultiplier="1.2"
-            android:paddingStart="@dimen/layout_padding"
-            android:paddingTop="@dimen/small_padding"
-            android:paddingEnd="@dimen/layout_padding"
-            android:text="@string/bio"
-            app:drawableTopCompat="@android:drawable/btn_star_big_on">
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/layout_margin"
+            android:fontFamily="@font/roboto"
+            android:text="@string/done" />
 
-        </TextView>
+        <TextView
+            android:id="@+id/nickname_text"
+            style="@style/NameStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_margin"
+            android:background="@color/colorAccent"
+            android:paddingBottom="@dimen/small_padding"
+            android:text="@={myName.nickname}"
+            android:textAlignment="center"
+            android:visibility="gone"
+            tools:text="Garfield"
+            tools:visibility="visible" />
 
-    </ScrollView>
-</LinearLayout>
+        <ImageView
+            android:id="@+id/star_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/layout_margin"
+            android:contentDescription="@string/yellow_star"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ScrollView
+            android:id="@+id/bio_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/bio_text"
+                style="@style/NameStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/layout_padding"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingStart="@dimen/layout_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingEnd="@dimen/layout_padding"
+                android:text="@{String.format(@string/bio, myName.name)}"
+                app:drawableTopCompat="@android:drawable/btn_star_big_on">
+
+            </TextView>
+
+        </ScrollView>
+    </LinearLayout>
+</layout>

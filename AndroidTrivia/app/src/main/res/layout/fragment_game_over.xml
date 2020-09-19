@@ -40,7 +40,7 @@
             app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/try_again" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/tryAgainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,6 @@
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:text="@string/try_again"
-            android:textColor="?colorAccent"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

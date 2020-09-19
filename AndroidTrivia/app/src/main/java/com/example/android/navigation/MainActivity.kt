@@ -24,19 +24,31 @@ import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val navController = this.findNavController(R.id.triviaNavHostFragment)
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
+//        NavigationUI.setupActionBarWithNavController(this, navController)
+        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.triviaNavHostFragment)
 
-        return navController.navigateUp()
+        return NavigationUI.navigateUp(navController, binding.drawerLayout)
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isOpen) {
+            binding.drawerLayout.close()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

@@ -25,14 +25,13 @@
         android:layout_height="match_parent"
         android:background="@color/youWinBackground">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/nextMatchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
-            android:text="Next Match"
-            android:textColor="@color/youWinDark"
+            android:text="@string/next_match"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

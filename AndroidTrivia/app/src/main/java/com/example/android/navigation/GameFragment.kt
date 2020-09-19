@@ -58,17 +58,18 @@ class GameFragment : Fragment() {
     )
 
 
-
     lateinit var currentQuestion: Question
     lateinit var answers: MutableList<String>
     private var questionIndex = 0
     private val numQuestions = Math.min((questions.size + 1) / 2, 3)
 
+    private lateinit var binding: FragmentGameBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentGameBinding>(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game, container, false)
 
         // Shuffles the questions and sets the question index to the first question.
@@ -88,6 +89,7 @@ class GameFragment : Fragment() {
                     R.id.thirdAnswerRadioButton -> answerIndex = 2
                     R.id.fourthAnswerRadioButton -> answerIndex = 3
                 }
+
                 val navController = view.findNavController()
                 // The first answer in the original question is always the correct one, so if our
                 // answer matches, we have the correct answer.
@@ -124,6 +126,8 @@ class GameFragment : Fragment() {
         answers = currentQuestion.answers.toMutableList()
         // and shuffle them
         answers.shuffle()
+
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_android_trivia_question, questionIndex + 1, numQuestions)
+        binding.questionRadioGroup.clearCheck()
     }
 }

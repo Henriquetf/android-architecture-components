@@ -25,10 +25,18 @@ class TitleFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = "Android Trivia"
 
-        binding.playButton.setOnClickListener {
-            val navController = view.findNavController()
+        val navController = findNavController()
 
+        binding.playButton.setOnClickListener {
             navController.navigate(R.id.action_titleFragment_to_gameFragment)
+        }
+
+        binding.rulesButton.setOnClickListener {
+            navController.navigate(R.id.action_titleFragment_to_rulesFragment)
+        }
+
+        binding.aboutButton.setOnClickListener {
+            navController.navigate(R.id.action_titleFragment_to_aboutFragment)
         }
     }
 

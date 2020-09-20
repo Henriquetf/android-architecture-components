@@ -31,9 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        setSupportActionBar(binding.toolbar)
+
         val navController = this.findNavController(R.id.triviaNavHostFragment)
 
-//        NavigationUI.setupActionBarWithNavController(this, navController)
         NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
     }

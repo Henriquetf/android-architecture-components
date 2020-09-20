@@ -2,8 +2,8 @@ package com.example.android.navigation
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -23,20 +23,18 @@ class TitleFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        (activity as AppCompatActivity).supportActionBar?.title = "Android Trivia"
-
         val navController = findNavController()
 
         binding.playButton.setOnClickListener {
-            navController.navigate(R.id.action_titleFragment_to_gameFragment)
+            navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
 
         binding.rulesButton.setOnClickListener {
-            navController.navigate(R.id.action_titleFragment_to_rulesFragment)
+            navController.navigate(TitleFragmentDirections.actionTitleFragmentToRulesFragment())
         }
 
         binding.aboutButton.setOnClickListener {
-            navController.navigate(R.id.action_titleFragment_to_aboutFragment)
+            navController.navigate(TitleFragmentDirections.actionTitleFragmentToAboutFragment())
         }
     }
 

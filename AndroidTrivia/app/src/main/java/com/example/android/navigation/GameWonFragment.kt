@@ -34,7 +34,7 @@ class GameWonFragment : Fragment() {
 
         binding.nextMatchButton.setOnClickListener { view ->
             view.findNavController()
-                    .navigate(R.id.action_gameWonFragment_to_gameFragment)
+                    .navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
 
         return binding.root

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -101,10 +102,10 @@ class GameFragment : Fragment() {
                         setQuestion()
                         binding.invalidateAll()
                     } else {
-                        navController.navigate(R.id.action_gameFragment_toGameWonFragment)
+                        navController.navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions, questionIndex))
                     }
                 } else {
-                    navController.navigate(R.id.action_gameFragment_to_gameOverFragment)
+                    navController.navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }
             }
         }

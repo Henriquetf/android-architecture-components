@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     private var revenue = 0
     private var dessertsSold = 0
 
+    private lateinit var dessertTimer: DessertTimer
+
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
 
@@ -62,6 +64,10 @@ class MainActivity : AppCompatActivity() {
     )
     private var currentDessert = allDesserts[0]
 
+    init {
+        Timber.i("init called")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -73,6 +79,8 @@ class MainActivity : AppCompatActivity() {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
+
+        dessertTimer = DessertTimer(this.lifecycle)
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -100,6 +108,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+
         Timber.i("onStop Called")
     }
 

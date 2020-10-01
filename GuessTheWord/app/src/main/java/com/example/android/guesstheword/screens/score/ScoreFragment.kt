@@ -22,7 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.ScoreFragmentBinding
 
@@ -31,6 +31,10 @@ import com.example.android.guesstheword.databinding.ScoreFragmentBinding
  */
 class ScoreFragment : Fragment() {
 
+    private lateinit var viewModel: ScoreViewModel
+    private lateinit var viewModelFactory: ScoreViewModelFactory
+    private lateinit var binding: ScoreFragmentBinding
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -38,13 +42,25 @@ class ScoreFragment : Fragment() {
     ): View? {
 
         // Inflate view and obtain an instance of the binding class.
-        val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.score_fragment,
                 container,
                 false
         )
 
+        val args = ScoreFragmentArgs.fromBundle(requireArguments())
+
+        viewModelFactory = ScoreViewModelFactory(args.score)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(ScoreViewModel::class.java)
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.scoreText.text = viewModel.score.toString()
     }
 }

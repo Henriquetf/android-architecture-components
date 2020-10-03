@@ -18,7 +18,7 @@ package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.android.trackmysleepquality.database.SleepDatabaseDao
+import com.example.android.trackmysleepquality.database.dao.SleepDatabaseDao
 
 /**
  * ViewModel for SleepTrackerFragment.

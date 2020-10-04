@@ -20,6 +20,16 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+enum class SleepQuality(val value: Int) {
+    NOT_SET(-1),
+    VERY_BAD(0),
+    POOR(1),
+    SO_SO(2),
+    OK(3),
+    PRETTY_GOOD(4),
+    EXCELLENT(5);
+}
+
 @Entity(tableName = "daily_sleep_quality_table")
 data class SleepNight(
         @PrimaryKey(autoGenerate = true)
@@ -32,5 +42,5 @@ data class SleepNight(
         var endTimeMilli: Long = startTimeMilli,
 
         @ColumnInfo(name = "quality_rating")
-        var sleepQuality: Int = -1
+        var sleepQuality: Int = SleepQuality.NOT_SET.value
 )

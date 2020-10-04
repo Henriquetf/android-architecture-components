@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
@@ -35,6 +36,7 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerB
 class SleepTrackerFragment : Fragment() {
 
     private lateinit var binding: FragmentSleepTrackerBinding
+    private lateinit var sleepTrackerViewModel: SleepTrackerViewModel
 
     /**
      * Called when the Fragment is ready to display content to the screen.
@@ -53,7 +55,7 @@ class SleepTrackerFragment : Fragment() {
 
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
 
-        val sleepTrackerViewModel = ViewModelProvider(this, viewModelFactory)
+        sleepTrackerViewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SleepTrackerViewModel::class.java)
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
@@ -65,5 +67,14 @@ class SleepTrackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, { night ->
+            night?.let {
+                findNavController().navigate(
+                        SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment(night.nightId)
+                )
+
+                sleepTrackerViewModel.doneNavigating()
+            }
+        })
     }
 }

@@ -22,6 +22,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.database.dao.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.entities.SleepNight
+import com.example.android.trackmysleepquality.database.entities.SleepQuality
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -75,7 +76,7 @@ class SleepDatabaseTest {
         val night = SleepNight()
         night.nightId = sleepDao.insert(night)
 
-        night.sleepQuality = 2
+        night.sleepQuality = SleepQuality.POOR.value
         sleepDao.update(night)
 
         val tonight = sleepDao.getTonight()

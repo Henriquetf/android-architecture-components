@@ -27,6 +27,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * A fragment with buttons to record start and end times for sleep, which are saved in
@@ -36,7 +37,7 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerB
 class SleepTrackerFragment : Fragment() {
 
     private lateinit var binding: FragmentSleepTrackerBinding
-    private lateinit var sleepTrackerViewModel: SleepTrackerViewModel
+    private lateinit var viewModel: SleepTrackerViewModel
 
     /**
      * Called when the Fragment is ready to display content to the screen.
@@ -55,10 +56,10 @@ class SleepTrackerFragment : Fragment() {
 
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
 
-        sleepTrackerViewModel = ViewModelProvider(this, viewModelFactory)
+        viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SleepTrackerViewModel::class.java)
 
-        binding.sleepTrackerViewModel = sleepTrackerViewModel
+        binding.sleepTrackerViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
@@ -67,13 +68,25 @@ class SleepTrackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, { night ->
+        viewModel.navigateToSleepQuality.observe(viewLifecycleOwner, { night ->
             night?.let {
                 findNavController().navigate(
                         SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment(night.nightId)
                 )
 
-                sleepTrackerViewModel.doneNavigating()
+                viewModel.doneNavigating()
+            }
+        })
+
+        viewModel.showSnackbarEvent.observe(viewLifecycleOwner, { showSnackbar ->
+            if (showSnackbar) {
+                Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.cleared_message),
+                        Snackbar.LENGTH_SHORT
+                ).show()
+
+                viewModel.doneShowingSnackbar()
             }
         })
     }

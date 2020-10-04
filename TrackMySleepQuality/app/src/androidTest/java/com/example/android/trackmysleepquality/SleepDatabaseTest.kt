@@ -23,6 +23,7 @@ import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.database.dao.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.entities.SleepNight
 import com.example.android.trackmysleepquality.database.entities.SleepQuality
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -64,49 +65,58 @@ class SleepDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetNight() {
-        val night = SleepNight()
-        sleepDao.insert(night)
-        val tonight = sleepDao.getTonight()
-        assertEquals(-1, tonight?.sleepQuality)
+        runBlocking {
+            val night = SleepNight()
+            sleepDao.insert(night)
+            val tonight = sleepDao.getTonight()
+
+            assertEquals(SleepQuality.NOT_SET.value, tonight?.sleepQuality)
+        }
     }
 
     @Test
     @Throws(Exception::class)
     fun insertAndUpdateNight() {
-        val night = SleepNight()
-        night.nightId = sleepDao.insert(night)
+        runBlocking {
+            val night = SleepNight()
+            night.nightId = sleepDao.insert(night)
 
-        night.sleepQuality = SleepQuality.POOR.value
-        sleepDao.update(night)
+            night.sleepQuality = SleepQuality.POOR.value
+            sleepDao.update(night)
 
-        val tonight = sleepDao.getTonight()
-        assertEquals(2, tonight?.sleepQuality)
+            val tonight = sleepDao.getTonight()
+            assertEquals(SleepQuality.POOR.value, tonight?.sleepQuality)
+        }
     }
 
     @Test
     @Throws(Exception::class)
     fun insertAndClear() {
-        val night = SleepNight()
-        sleepDao.insert(night)
+        runBlocking {
+            val night = SleepNight()
+            sleepDao.insert(night)
 
-        val tonight = sleepDao.getTonight()
-        assertNotNull(tonight)
+            val tonight = sleepDao.getTonight()
+            assertNotNull(tonight)
 
-        sleepDao.clear()
+            sleepDao.clear()
 
-        assertNull(sleepDao.getTonight())
+            assertNull(sleepDao.getTonight())
+        }
     }
 
     @Test
     @Throws(Exception::class)
     fun insertAndGetById() {
-        val night = SleepNight()
-        sleepDao.insert(night)
+        runBlocking {
+            val night = SleepNight()
+            sleepDao.insert(night)
 
-        val tonight = sleepDao.getTonight()
+            val tonight = sleepDao.getTonight()
 
-        assertNotNull(tonight)
-        assertEquals(tonight, sleepDao.get(tonight!!.nightId))
+            assertNotNull(tonight)
+            assertEquals(tonight, sleepDao.get(tonight!!.nightId))
+        }
     }
 
 }

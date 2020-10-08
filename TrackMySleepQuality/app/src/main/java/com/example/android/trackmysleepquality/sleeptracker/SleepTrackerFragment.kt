@@ -38,6 +38,7 @@ class SleepTrackerFragment : Fragment() {
 
     private lateinit var binding: FragmentSleepTrackerBinding
     private lateinit var viewModel: SleepTrackerViewModel
+    private lateinit var adapter: SleepNightAdapter
 
     /**
      * Called when the Fragment is ready to display content to the screen.
@@ -58,6 +59,10 @@ class SleepTrackerFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SleepTrackerViewModel::class.java)
+
+        adapter = SleepNightAdapter()
+
+        binding.sleepList.adapter = adapter
 
         binding.sleepTrackerViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -87,6 +92,12 @@ class SleepTrackerFragment : Fragment() {
                 ).show()
 
                 viewModel.doneShowingSnackbar()
+            }
+        })
+
+        viewModel.nights.observe(viewLifecycleOwner, {
+            it?.let {
+                adapter.data = it
             }
         })
     }

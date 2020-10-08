@@ -1,31 +1,29 @@
-TrackMySleepQuality - Starter Code
-==================================
+TrackMySleepQuality with RecyclerView - Starter Code for 7.1
+============================================================
 
-Starter code for Android Kotlin Fundamentals Codelab 6.1 Room
+Starter code for Android Kotlin Fundamentals Codelab 7.1 RecyclerView Fundamentals
 
 Introduction
 ------------
 
-TrackMySleepQuality is an app for recording sleep data for each night. 
-You can record a start and stop time, assign a quality rating, and clear the database. 
+TrackMySleepQuality is an app for recording sleep data for each night.
+You can record a start and stop time, assign a quality rating, and clear the database.
 
-In this codelab, working from this starter app,
-you will implement the Room database that holds the sleep data. 
-You will then use instrumented tests to verify that this backend works. 
+In this codelab you will learn how to use a RecyclerView in your Android Kotlin app
+to efficiently display lists of items.
 
 
 Pre-requisites
 --------------
 
-You need to know:
+You should be familiar with:
 
-* Building a basic user interface (UI) for an Android app, 
-  using an activity, fragments, and views.
-* Navigating between fragments and using Safe Args (a Gradle plugin) 
-  to pass data between fragments.
-* View models, view-model factories, and LiveData and its observers. 
-  These Architecture Components topics are covered in an earlier codelab in this course.
-* A basic understanding of SQL databases and the SQLite language.
+* Building a basic user interface (UI) using an activity, fragments, and views.
+* Navigating between fragments, and using safeArgs to pass data between fragments.
+* Using view models, view model factories, transformations, and LiveData and their observers.
+* Creating a Room database, creating a DAO, and defining entities.
+* Using coroutines for database tasks and other long-running tasks.
+
 
 
 Getting Started
@@ -52,3 +50,4 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
+

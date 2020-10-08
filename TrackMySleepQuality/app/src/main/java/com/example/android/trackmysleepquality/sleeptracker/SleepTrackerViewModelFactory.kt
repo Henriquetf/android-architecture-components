@@ -27,12 +27,12 @@ import com.example.android.trackmysleepquality.database.dao.SleepDatabaseDao
  * Provides the SleepDatabaseDao and context to the ViewModel.
  */
 class SleepTrackerViewModelFactory(
-        private val dataSource: SleepDatabaseDao,
+        private val database: SleepDatabaseDao,
         private val application: Application) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
-            return SleepTrackerViewModel(dataSource, application) as T
+            return SleepTrackerViewModel(database, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

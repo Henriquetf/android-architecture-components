@@ -52,9 +52,9 @@ class SleepTrackerFragment : Fragment() {
                 inflater, R.layout.fragment_sleep_tracker, container, false)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+        val database = SleepDatabase.getInstance(application).sleepDatabaseDao
 
-        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
+        val viewModelFactory = SleepTrackerViewModelFactory(database, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SleepTrackerViewModel::class.java)

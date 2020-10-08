@@ -24,7 +24,8 @@ import com.example.android.trackmysleepquality.database.dao.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.entities.SleepNight
 
 @Database(entities = [SleepNight::class], version = 1, exportSchema = false)
-public abstract class SleepDatabase : RoomDatabase() {
+abstract class SleepDatabase : RoomDatabase() {
+
     abstract val sleepDatabaseDao: SleepDatabaseDao
 
     companion object {

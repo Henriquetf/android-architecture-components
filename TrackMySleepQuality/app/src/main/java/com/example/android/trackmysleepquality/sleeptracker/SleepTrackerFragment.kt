@@ -24,6 +24,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
@@ -62,10 +64,15 @@ class SleepTrackerFragment : Fragment() {
 
         adapter = SleepNightAdapter()
 
-        binding.sleepList.adapter = adapter
+        val layout = GridLayoutManager(requireContext(), 3)
 
-        binding.sleepTrackerViewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.apply {
+            sleepList.adapter = adapter
+            sleepList.layoutManager = layout
+
+            sleepTrackerViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         return binding.root
     }

@@ -31,6 +31,19 @@ import java.util.*
 private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
 private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
 
+/**
+ * Convert a duration to a formatted string for display.
+ *
+ * Examples:
+ *
+ * 6 seconds on Wednesday
+ * 2 minutes on Monday
+ * 40 hours on Thursday
+ *
+ * @param startTimeMilli the start of the interval
+ * @param endTimeMilli the end of the interval
+ * @param res resources used to load formatted strings
+ */
 fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Resources): String {
     val durationMilli = endTimeMilli - startTimeMilli
     val weekdayString = SimpleDateFormat("EEEE", Locale.getDefault()).format(startTimeMilli)

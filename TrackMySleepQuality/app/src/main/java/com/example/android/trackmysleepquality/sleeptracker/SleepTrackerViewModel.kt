@@ -20,7 +20,6 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.android.trackmysleepquality.database.dao.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.entities.SleepNight
-import com.example.android.trackmysleepquality.formatNights
 import kotlinx.coroutines.launch
 
 /**
@@ -38,6 +37,10 @@ class SleepTrackerViewModel(
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
     val navigateToSleepQuality: LiveData<SleepNight>
         get() = _navigateToSleepQuality
+
+    private val _navigateToSleepDetail = MutableLiveData<Long>()
+    val navigateToSleepDetail: LiveData<Long>
+        get() = _navigateToSleepDetail
 
     val startButtonEnabled = Transformations.map(tonight) {
         it == null
@@ -110,6 +113,14 @@ class SleepTrackerViewModel(
 
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = false
+    }
+
+    fun onSleepNightClicked(id: Long) {
+        _navigateToSleepDetail.value = id
+    }
+
+    fun onSleepNightNavigated() {
+        _navigateToSleepDetail.value = null
     }
 
     private suspend fun insert(night: SleepNight) {

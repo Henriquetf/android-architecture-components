@@ -33,7 +33,7 @@ class DetailFragment : Fragment() {
         @Suppress("UNUSED_VARIABLE")
         val application = requireNotNull(activity).application
         val binding = FragmentDetailBinding.inflate(inflater)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 }

@@ -29,6 +29,8 @@ import com.example.android.marsrealestate.databinding.FragmentOverviewBinding
  */
 class OverviewFragment : Fragment() {
 
+    private lateinit var binding: FragmentOverviewBinding
+
     /**
      * Lazily initialize our [OverviewViewModel].
      */
@@ -42,13 +44,15 @@ class OverviewFragment : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = FragmentOverviewBinding.inflate(inflater)
+        binding = FragmentOverviewBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
+
+        binding.propertyList.adapter = PhotoGridAdapter()
 
         setHasOptionsMenu(true)
         return binding.root

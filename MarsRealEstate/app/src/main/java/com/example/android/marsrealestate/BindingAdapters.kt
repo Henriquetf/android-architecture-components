@@ -70,3 +70,12 @@ fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
         }
     }
 }
+
+@BindingAdapter("propertyIsRental")
+fun bindIsRental(view: View, isRental: Boolean) {
+    view.visibility = if (isRental) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}

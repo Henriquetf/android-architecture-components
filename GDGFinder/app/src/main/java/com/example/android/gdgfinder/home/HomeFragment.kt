@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.gdgfinder.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
@@ -40,6 +41,23 @@ class HomeFragment : Fragment() {
         val binding = HomeFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        binding.viewModel = viewModel
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.navigateToSearch.observe(viewLifecycleOwner) { navigate ->
+            if (navigate) {
+                val navController = findNavController()
+
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToGdgListFragment())
+
+                viewModel.onNavigatedToSearch()
+
+            }
+        }
     }
 }

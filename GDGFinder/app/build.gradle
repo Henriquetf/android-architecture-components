@@ -38,9 +38,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     buildFeatures {
         dataBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -87,8 +93,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
     // material design components
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
     // Client for retrieving location
-    implementation "com.google.android.gms:play-services-location:17.0.0"
+    implementation "com.google.android.gms:play-services-location:17.1.0"
 }
